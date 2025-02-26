@@ -1,4 +1,3 @@
- 
 import { useState } from "react";
 import ImagePopup from "../../modals/ImagePopup";
 import "react-18-image-lightbox/style.css";
@@ -15,64 +14,65 @@ interface DataType {
   image: string;
   title: string;
   category: string;
+  url: string;
 }
 
-const portfolio_data:DataType[] = [
+const portfolio_data: DataType[] = [
   {
     id: 1,
     col: "6",
     image: portfolio_img_1,
-    title: "Glasses of Cocktail",
-    category: "Branding",
+    title: "GenAI Studio",
+    category: "AI",
+    url: "https://genai-studio-dev.infiniit.ai/"
   },
   {
     id: 2,
     col: "6",
     image: portfolio_img_2,
-    title: "A Branch with Flowers",
-    category: "Mockup",
+    title: "NIIT DIGITAL",
+    category: "Eduction",
+    url: "https://www.niit.com/india/"
   },
   {
     id: 3,
     col: "4",
     image: portfolio_img_3,
-    title: "Orange Rose Flower",
-    category: "Video",
+    title: "Bee Recruiter",
+    category: "JOB PORTAL",
+    url: "http://brecruiter.vayuz.com/"
   },
   {
     id: 4,
     col: "4",
     image: portfolio_img_4,
-    title: "Green Plant on a Desk",
-    category: "Branding",
+    title: "Resume Analyzer",
+    category: "ATS",
+    url: "https://resume-match-frontend.vercel.app/"
   },
   {
     id: 5,
     col: "4",
     image: portfolio_img_5,
-    title: "Orange Rose Flower",
-    category: "Mockup",
+    title: "Frammer AI",
+    category: "AI",
+    url: "https://www.frammer.com/"
   },
 ];
 
 export default function PortfolioArea() {
-
-  // photoIndex
-  const [photoIndex, setPhotoIndex] = useState(null);
-  // image open state
+  const [photoIndex, setPhotoIndex] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-  // handleImagePopup
-  const handleImagePopup = (i: any) => {
+
+  const handleImagePopup = (i: number) => {
     setPhotoIndex(i);
     setIsOpen(true);
   };
-  //  images
-  const image = portfolio_data.slice(0, 5).map((item) => item.image);
 
+  const image = portfolio_data.map((item) => item.image);
 
   return (
     <>
-
       <div className="projects-area" id="portfolio">
         <div className="custom-icon">
           <img src="assets/images/custom/work-scribble.svg" alt="custom" />
@@ -81,11 +81,9 @@ export default function PortfolioArea() {
           <div className="row g-4 portfolio-grid">
             {portfolio_data.map((item, i) => (
               <div key={i} className={`col-md-6 col-xl-${item.col} portfolio-item category-1`}>
-                <a
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleImagePopup(i)} className="work-popup">
+                <a href={item.url} target="_blank" rel="noopener noreferrer" className="work-popup">
                   <div className="portfolio-box">
-                    <img src={item.image} alt="" style={{ height: "auto"}} data-rjs="2" />
+                    <img src={item.image} alt="" style={{ height: "auto" }} data-rjs="2" />
                     <span className="portfolio-category">{item.category}</span>
                     <div className="portfolio-caption">
                       <h1>{item.title}</h1>
@@ -98,7 +96,6 @@ export default function PortfolioArea() {
         </div>
       </div>
 
-      {/* image light box start */}
       {isOpen && (
         <ImagePopup
           images={image}
@@ -107,7 +104,6 @@ export default function PortfolioArea() {
           setPhotoIndex={setPhotoIndex}
         />
       )}
-      {/* image light box end */}
     </>
-  )
+  );
 }
