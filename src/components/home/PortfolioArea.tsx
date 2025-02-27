@@ -64,10 +64,7 @@ export default function PortfolioArea() {
   const [photoIndex, setPhotoIndex] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleImagePopup = (i: number) => {
-    setPhotoIndex(i);
-    setIsOpen(true);
-  };
+
 
   const image = portfolio_data.map((item) => item.image);
 
